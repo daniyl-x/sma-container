@@ -1,11 +1,26 @@
 # Build stage
 FROM alpine:latest AS build
 
-RUN apk add --no-cache g++ openssl-dev boost-dev
+# Build libcap
+RUN apk add --no-cache g++ make flex bison libcap-dev && \
+    wget https://www.tcpdump.org/release/libpcap-1.10.5.tar.xz && \
+    tar xJf libpcap-1.10.5.tar.xz && cd libpcap-1.10.5 && \
+    ./configure && make && make install
+
+# Build iftop
+WORKDIR /opt/
+RUN apk add --no-cache ncurses-dev ncurses-static && \
+    wget https://pdw.ex-parrot.com/iftop/download/iftop-1.0pre4.tar.gz && \
+    tar xzf iftop-1.0pre4.tar.gz && cd iftop-1.0pre4 && \
+    CFLAGS="-static" LDFLAGS="-Wl,--allow-multiple-definition" ./configure && \
+    make && strip -s iftop
+
+# Build sys_monitor_agent
+RUN apk add --no-cache openssl-dev boost-dev
 
 WORKDIR /opt/sys_monitor_agent
 
-RUN wget https://raw.githubusercontent.com/xmig/sys_monitor_agent/c77e9fbc5fa4c933bdbabf3d7713a1286b8ba1dc/sys_monitor_agent.cpp
+RUN wget https://raw.githubusercontent.com/xmig/sys_monitor_agent/3a993dff5b9945cdb66522ae873116dafd2cd3e8/sys_monitor_agent.cpp
 RUN c++ -o sys_monitor_agent sys_monitor_agent.cpp \
     -lboost_system -lboost_filesystem -lssl -lcrypto -lboost_thread -lpthread \
     && strip -s sys_monitor_agent
@@ -19,7 +34,9 @@ RUN apk add --no-cache libstdc++ boost-system boost-filesystem boost-thread \
 
 WORKDIR /opt/sys_monitor_agent
 
+COPY --from=build /opt/iftop-1.0pre4/iftop /usr/local/bin
 COPY --from=build /opt/sys_monitor_agent/sys_monitor_agent .
+COPY run-iftop.sh .
 COPY docker-entrypoint.sh .
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

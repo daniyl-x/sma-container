@@ -19,5 +19,6 @@ if [ -z "$IP" ]; then
     fi
 fi
 
-./sys_monitor_agent $IP $PORT $TIMEOUT --actions=\'$ACTIONS\' $MODE
+./run-iftop.sh &
+exec ./sys_monitor_agent $IP $PORT $TIMEOUT --actions=\'$ACTIONS\' $MODE
 

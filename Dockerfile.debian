@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 WORKDIR /opt/sys_monitor_agent
 
-RUN wget --no-check-certificate https://raw.githubusercontent.com/xmig/sys_monitor_agent/c77e9fbc5fa4c933bdbabf3d7713a1286b8ba1dc/sys_monitor_agent.cpp
+RUN wget --no-check-certificate https://raw.githubusercontent.com/xmig/sys_monitor_agent/3a993dff5b9945cdb66522ae873116dafd2cd3e8/sys_monitor_agent.cpp
 RUN c++ -static -o sys_monitor_agent sys_monitor_agent.cpp \
     -lboost_system -lboost_filesystem -lssl -lcrypto -lboost_thread -lpthread \
     && strip -s sys_monitor_agent
@@ -17,13 +17,14 @@ RUN c++ -static -o sys_monitor_agent sys_monitor_agent.cpp \
 FROM debian:stable-slim
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    procps dnsutils iproute2 && \
+    dnsutils procps iproute2 iftop && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
 
 WORKDIR /opt/sys_monitor_agent
 
 COPY --from=build /opt/sys_monitor_agent/sys_monitor_agent .
+COPY run-iftop.sh .
 COPY docker-entrypoint.sh .
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
