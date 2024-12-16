@@ -32,7 +32,7 @@ Not setting any variables will result in
 |IP|Your Docker IP address|multicast group \| UDP IP|
 |PORT|"9999"|port|
 |TIMEOUT|"30"|default_timeout_sec|
-|ACTIONS|None|cpu:N,disk:N[<mount1;mount2;..>],df:N[<mount1;..>],ps:N,python:N,docker:N|
+|ACTIONS|None|cpu:N,disk:N[<mount1;mount2;..>],df:N[<mount1;..>],ps:N,python:N,iftop:N,hostinfo:N,docker:N|
 |MODE|None|-d \| -p|
 
 
@@ -45,7 +45,7 @@ services:
     image: daniylx/sys_monitor_agent:latest
     container_name: sys_monitor_agent
     environment:
-      - ACTIONS=tcp:10,disk:10[/],ps:10,df:10[/],net:10,memory:10,python:10,cpu:10
+      - ACTIONS=tcp:10,disk:10[/],ps:10,df:10[/],net:10,memory:10,python:10,cpu:10,iftop:10
       - MODE=-p
     restart: unless-stopped
 ```
@@ -61,7 +61,7 @@ docker compose up -d
 To run the container in the foreground, the next command can be used:
 ```sh
 docker run --rm -it --name sys_monitor_agent -e MODE=-p 
-    -e ACTIONS=tcp:10,disk:10[/],ps:10,df:10[/],net:10,memory:10,python:10,cpu:10 \
+    -e ACTIONS=tcp:10,disk:10[/],ps:10,df:10[/],net:10,memory:10,python:10,cpu:10,iftop:10 \
     daniylx/sys_monitor_agent:latest
 ```
 The container will be stopped and removed on `Ctrl+C`.
