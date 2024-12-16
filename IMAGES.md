@@ -1,6 +1,9 @@
 # Description
 This repo contains images built for <https://github.com/xmig/sys_monitor_agent>.
 
+The source for dockerfiles can be found at
+<https://github.com/daniyl-x/sma-container>.
+
 
 ## Table of contents
 - [Tags](#tags)
