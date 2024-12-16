@@ -1,0 +1,26 @@
+# Build stage
+FROM alpine:latest AS build
+
+RUN apk add --no-cache g++ openssl-dev boost-dev
+
+WORKDIR /opt/sys_monitor_agent
+
+RUN wget https://raw.githubusercontent.com/xmig/sys_monitor_agent/c77e9fbc5fa4c933bdbabf3d7713a1286b8ba1dc/sys_monitor_agent.cpp
+RUN c++ -o sys_monitor_agent sys_monitor_agent.cpp \
+    -lboost_system -lboost_filesystem -lssl -lcrypto -lboost_thread -lpthread \
+    && strip -s sys_monitor_agent
+
+
+# Runtime stage
+FROM alpine:latest
+
+RUN apk add --no-cache libstdc++ boost-system boost-filesystem boost-thread \
+    procps-ng coreutils iproute2
+
+WORKDIR /opt/sys_monitor_agent
+
+COPY --from=build /opt/sys_monitor_agent/sys_monitor_agent .
+COPY docker-entrypoint.sh .
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
+
