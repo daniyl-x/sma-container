@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 WORKDIR /opt/sys_monitor_agent
 
-RUN wget --no-check-certificate https://raw.githubusercontent.com/xmig/sys_monitor_agent/bef164a727bc6f1a311470143e3233e71d53d6e7/sys_monitor_agent.cpp
+RUN wget --no-check-certificate https://raw.githubusercontent.com/xmig/sys_monitor_agent/3e5a196c60773bb700eb03ed30a9ab4b45df8007/sys_monitor_agent.cpp
 RUN c++ -static -o sys_monitor_agent sys_monitor_agent.cpp \
     -lboost_system -lboost_filesystem -lssl -lcrypto -lboost_thread -lpthread \
     && strip -s sys_monitor_agent
