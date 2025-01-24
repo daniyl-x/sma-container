@@ -3,7 +3,7 @@ services:
     image: daniylx/sys_monitor_agent:latest
     container_name: sys_monitor_agent
     environment:
-      - ACTIONS=tcp:10,disk:10[/],ps:10,df:10[/],net:10,memory:10,python:10,cpu:10
+      - ACTIONS=tcp:10,disk:10[/],ps:10,df:10[/],net:10,memory:10,python:10,cpu:10,iftop:10
       - MODE=-p
     restart: unless-stopped
 
