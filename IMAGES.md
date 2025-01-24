@@ -24,15 +24,17 @@ The source for dockerfiles can be found at
 > **Note:** actions `docker` and `hostinfo` aren't supported in containers.
 Some options from current documentation will be missing from older builds
 
-Not setting any variables will result in
-`./sys_monitor_agent <your-docker-ip> 9999 30 --actions= --sysroot --apikey= --securekey=`
+Not setting any variables will result in the next command:
+```sh
+./sys_monitor_agent <your-docker-ip> 9999 30 --actions= --sysroot= --apikey= --securekey=
+```
 
 |Variable|Default value|Usage|
 |-|-|-|
 |IP|Your Docker IP address|multicast group \| UDP IP|
 |PORT|"9999"|port|
 |TIMEOUT|"30"|default_timeout_sec|
-|ACTIONS|None|cpu:N,disk:N[<mount1;mount2;..>],df:N[<mount1;..>],ps:N,python:N,iftop:N,hostinfo:N,docker:N,kill_mem:N[<percentage>]|
+|ACTIONS|None|cpu:N,disk:N[<mount1;mount2;..>],df:N[<mount1;..>],ps:N,python:N,iftop:N,hostinfo:N,docker:N,kill_mem:N[<mem_percentage>]|
 |SYSROOT|None|root mountpoint|
 |API_KEY|None|API key|
 |SECURE_KEY|None|crypto key|
@@ -63,7 +65,7 @@ docker compose up -d
 
 To run the container in the foreground, the next command can be used:
 ```sh
-docker run --rm -it --name sys_monitor_agent -e MODE=-p 
+docker run --rm -it --name sys_monitor_agent -e MODE=-p \
     -e ACTIONS=tcp:10,disk:10[/],ps:10,df:10[/],net:10,memory:10,python:10,cpu:10,iftop:10 \
     daniylx/sys_monitor_agent:latest
 ```
