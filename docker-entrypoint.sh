@@ -22,6 +22,6 @@ if [ -z "$IP" ]; then
 fi
 
 ./run-iftop.sh &
-exec ./sys_monitor_agent $IP $PORT $TIMEOUT --actions=\'$ACTIONS\' \
-    --apikey=\'$API_KEY\' --securekey=\'$SECURE_KEY\' $MODE
+exec ./sys_monitor_agent $IP $PORT $TIMEOUT --actions=$ACTIONS \
+    --apikey=$API_KEY --securekey=$SECURE_KEY $MODE
 
