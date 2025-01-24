@@ -3,6 +3,8 @@
 PORT=${PORT:-"9999"}
 TIMEOUT=${TIMEOUT:-"30"}
 ACTIONS=${ACTIONS-}
+API_KEY=${API_KEY-}
+SECURE_KEY=${SECURE_KEY-}
 MODE=${MODE-}
 
 _LOG="[IP AUTODISCOVERY]"
@@ -20,5 +22,6 @@ if [ -z "$IP" ]; then
 fi
 
 ./run-iftop.sh &
-exec ./sys_monitor_agent $IP $PORT $TIMEOUT --actions=\'$ACTIONS\' $MODE
+exec ./sys_monitor_agent $IP $PORT $TIMEOUT --actions=\'$ACTIONS\' \
+    --apikey=\'$API_KEY\' --securekey=\'$SECURE_KEY\' $MODE
 

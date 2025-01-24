@@ -33,6 +33,8 @@ Not setting any variables will result in
 |PORT|"9999"|port|
 |TIMEOUT|"30"|default_timeout_sec|
 |ACTIONS|None|cpu:N,disk:N[<mount1;mount2;..>],df:N[<mount1;..>],ps:N,python:N,iftop:N,hostinfo:N,docker:N|
+|API_KEY|None|API key|
+|SECURE_KEY|None|crypto key|
 |MODE|None|-d \| -p|
 
 
