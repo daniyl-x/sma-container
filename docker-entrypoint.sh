@@ -3,6 +3,7 @@
 PORT=${PORT:-"9999"}
 TIMEOUT=${TIMEOUT:-"30"}
 ACTIONS=${ACTIONS-}
+SYSROOT=${SYSROOT-}
 API_KEY=${API_KEY-}
 SECURE_KEY=${SECURE_KEY-}
 MODE=${MODE-}
@@ -23,5 +24,5 @@ fi
 
 ./run-iftop.sh &
 exec ./sys_monitor_agent $IP $PORT $TIMEOUT --actions=$ACTIONS \
-    --apikey=$API_KEY --securekey=$SECURE_KEY $MODE
+    --sysroot=$SYSROOT --apikey=$API_KEY --securekey=$SECURE_KEY $MODE
 
