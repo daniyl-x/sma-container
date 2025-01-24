@@ -25,14 +25,15 @@ The source for dockerfiles can be found at
 Some options from current documentation will be missing from older builds
 
 Not setting any variables will result in
-`./sys_monitor_agent <your-docker-ip> 9999 30 --actions=''`
+`./sys_monitor_agent <your-docker-ip> 9999 30 --actions= --sysroot --apikey= --securekey=`
 
 |Variable|Default value|Usage|
 |-|-|-|
 |IP|Your Docker IP address|multicast group \| UDP IP|
 |PORT|"9999"|port|
 |TIMEOUT|"30"|default_timeout_sec|
-|ACTIONS|None|cpu:N,disk:N[<mount1;mount2;..>],df:N[<mount1;..>],ps:N,python:N,iftop:N,hostinfo:N,docker:N|
+|ACTIONS|None|cpu:N,disk:N[<mount1;mount2;..>],df:N[<mount1;..>],ps:N,python:N,iftop:N,hostinfo:N,docker:N,kill_mem:N[<percentage>]|
+|SYSROOT|None|root mountpoint|
 |API_KEY|None|API key|
 |SECURE_KEY|None|crypto key|
 |MODE|None|-d \| -p|
