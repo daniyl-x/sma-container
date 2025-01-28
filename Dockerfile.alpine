@@ -19,8 +19,7 @@ RUN apk add --no-cache ncurses-dev ncurses-static && \
 RUN apk add --no-cache openssl-dev boost-dev
 
 WORKDIR /opt/sys_monitor_agent
-
-RUN wget https://raw.githubusercontent.com/xmig/sys_monitor_agent/24c8ac331e444a56ddeac1a53a1a2dd576a5bf40/sys_monitor_agent.cpp
+RUN wget https://raw.githubusercontent.com/xmig/sys_monitor_agent/10634b7088eb912cd7ec5159fd53db22474fe9a6/sys_monitor_agent.cpp
 RUN c++ -o sys_monitor_agent sys_monitor_agent.cpp \
     -lboost_system -lboost_filesystem -lssl -lcrypto -lboost_thread -lpthread \
     && strip -s sys_monitor_agent

@@ -6,6 +6,7 @@ ACTIONS=${ACTIONS-}
 SYSROOT=${SYSROOT-}
 API_KEY=${API_KEY-}
 SECURE_KEY=${SECURE_KEY-}
+SLACK_PATH=${SLACK_PATH-}
 MODE=${MODE-}
 
 _LOG="[IP AUTODISCOVERY]"
@@ -24,5 +25,6 @@ fi
 
 ./run-iftop.sh &
 exec ./sys_monitor_agent $IP $PORT $TIMEOUT --actions=$ACTIONS \
-    --sysroot=$SYSROOT --apikey=$API_KEY --securekey=$SECURE_KEY $MODE
+    --sysroot=$SYSROOT --apikey=$API_KEY --securekey=$SECURE_KEY \
+    --slackpath=$SLACK_PATH $MODE
 

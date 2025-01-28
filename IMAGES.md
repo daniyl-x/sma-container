@@ -26,7 +26,8 @@ Some options from current documentation will be missing from older builds
 
 Not setting any variables will result in the next command:
 ```sh
-./sys_monitor_agent <your-docker-ip> 9999 30 --actions= --sysroot= --apikey= --securekey=
+./sys_monitor_agent <your-docker-ip> 9999 30 --actions= --sysroot= --apikey= \
+    --securekey= --slackpath=
 ```
 
 |Variable|Default value|Usage|
@@ -38,6 +39,7 @@ Not setting any variables will result in the next command:
 |SYSROOT|None|root mountpoint|
 |API_KEY|None|API key|
 |SECURE_KEY|None|crypto key|
+|SLACK_PATH|None|Slack endpoint path|
 |MODE|None|-d \| -p|
 
 
